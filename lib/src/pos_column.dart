@@ -16,7 +16,7 @@ class PosColumn {
   PosColumn({
     this.text = '',
     this.textEncoded,
-    this.containsCjk = false,
+    this.containsChinese = false,
     this.width = 2,
     this.styles = const PosStyles(),
   }) {
@@ -30,7 +30,7 @@ class PosColumn {
 
   String text;
   Uint8List? textEncoded;
-  bool containsCjk;
+  bool containsChinese;
   int width;
   PosStyles styles;
 }

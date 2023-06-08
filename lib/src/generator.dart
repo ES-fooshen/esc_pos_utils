@@ -322,13 +322,13 @@ class Generator {
     String text, {
     PosStyles styles = const PosStyles(),
     int linesAfter = 0,
-    bool containsCjk = false,
+    bool containsChinese = false,
     int? maxCharsPerLine,
   }) {
     List<int> bytes = [];
-    if (!containsCjk) {
+    if (!containsChinese) {
       bytes += _text(
-        [TextWithType.fromText(text: text, isCjk: containsCjk)],
+        [TextWithType.fromText(text: text, isCjk: containsChinese)],
         styles: styles,
         maxCharsPerLine: maxCharsPerLine,
       );
@@ -456,7 +456,7 @@ class Generator {
       final double toPos = _colIndToPosition(colInd + cols[i].width) - spaceBetweenRows;
       int maxCharactersNb = ((toPos - fromPos) / charWidth).floor();
 
-      if (!cols[i].containsCjk) {
+      if (!cols[i].containsChinese) {
         // CASE 1: containsCjk = false
         var textWithType =
             cols[i].textEncoded != null ? TextWithType.fromEncoded(encodedBytes: cols[i].textEncoded!) : TextWithType.fromText(text: cols[i].text);
@@ -498,7 +498,7 @@ class Generator {
 
         if (toPrintNextRow.isNotEmpty) {
           isNextRow = true;
-          nextRow.add(PosColumn(text: toPrintNextRow, containsCjk: true, width: cols[i].width, styles: cols[i].styles));
+          nextRow.add(PosColumn(text: toPrintNextRow, containsChinese: true, width: cols[i].width, styles: cols[i].styles));
         } else {
           // Insert an empty col
           nextRow.add(PosColumn(text: '', width: cols[i].width, styles: cols[i].styles));
