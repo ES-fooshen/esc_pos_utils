@@ -9,9 +9,11 @@ class TextWithType {
     this.isCjk = false,
   }) {
     if (text!.length == 0) {
-      throw Exception('text should be passed');
+      //allow empty string passed
+      encodedBytes = _encodeText(' ', isCjk: isCjk);
+    } else {
+      encodedBytes = _encodeText(text!, isCjk: isCjk);
     }
-    encodedBytes = _encodeText(text!, isCjk: isCjk);
   }
 
   TextWithType.fromEncoded({
