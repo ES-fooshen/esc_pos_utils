@@ -241,7 +241,7 @@ class Generator {
     return bytes;
   }
 
-  List<int> setStyles(PosStyles styles, {bool isCjk = false}) {
+  List<int> setStyles(PosStyles styles, {bool isKanji = false}) {
     List<int> bytes = [];
     if (styles.align != _styles.align) {
       bytes += latin1.encode(styles.align == PosAlign.left ? cAlignLeft : (styles.align == PosAlign.center ? cAlignCenter : cAlignRight));
@@ -283,7 +283,7 @@ class Generator {
     }
 
     // Set CJK mode
-    if (isCjk) {
+    if (isKanji) {
       bytes += cCjkOn.codeUnits;
     } else {
       bytes += cCjkOff.codeUnits;
@@ -306,9 +306,9 @@ class Generator {
   }
 
   /// Sens raw command(s)
-  List<int> rawBytes(List<int> cmd, {bool isCjk = false}) {
+  List<int> rawBytes(List<int> cmd, {bool isKanji = false}) {
     List<int> bytes = [];
-    if (!isCjk) {
+    if (!isKanji) {
       bytes += cCjkOff.codeUnits;
     }
     bytes += Uint8List.fromList(cmd);
@@ -755,7 +755,7 @@ class Generator {
     }
 
     textWithTypes.forEach((textWithType) {
-      bytes += setStyles(styles, isCjk: textWithType.isCjk);
+      bytes += setStyles(styles, isKanji: textWithType.isCjk);
 
       bytes += textWithType.encodedBytes;
     });
